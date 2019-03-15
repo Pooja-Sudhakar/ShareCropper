@@ -11,14 +11,21 @@ firebase.initializeApp(config);
 var provider = new firebase.auth.GoogleAuthProvider();
 firebase.auth().useDeviceLanguage();
 
+
+
+
 document.querySelector("#login").addEventListener("click",function(){
 
     firebase.auth().signInWithPopup(provider).then(function(result) {
         console.log("ho");
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = result.credential.accessToken;
+        console.log(token);
         // The signed-in user info.
         var user = result.user;
+        console.log(user);
+
+
         // ...
       }).catch(function(error) {
         // Handle Errors here.
@@ -31,9 +38,19 @@ document.querySelector("#login").addEventListener("click",function(){
         // ...
       });
 
+     
+
 });
 
+document.querySelector("#signout").addEventListener("click",function(){
 
+  firebase.auth().signOut().then(function() {
+    console.log("Sign-out successful");
+  }).catch(function(error) {
+    // An error happened.
+  });
+  
+})
 
 var firestore = firebase.firestore();
 var ref = firestore.doc("users/Personal");
